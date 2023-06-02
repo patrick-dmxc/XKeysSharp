@@ -11,6 +11,10 @@ namespace XKeysSharp.Devices
         public byte? JoystickYResolverIndex => 8;
         public byte? JoystickZResolverIndex => 10;
 
+        public double? JoystickX => joystickResolver?.X;
+        public double? JoystickY => joystickResolver?.Y;
+        public double? JoystickZ => joystickResolver?.Z;
+
         protected override uint ButtonsCount => 12;
         protected override uint[]? UnavailableButtons => new uint[] { 3, 4, 5, 6, 7, 11, 12, 13, 14, 15, 19, 20, 21, 22, 23, 27, 28, 29, 30, 31 };
 

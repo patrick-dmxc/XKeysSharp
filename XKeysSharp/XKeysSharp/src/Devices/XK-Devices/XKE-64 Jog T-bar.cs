@@ -12,6 +12,11 @@ namespace XKeysSharp.Devices
         public byte JogAnalogResolverIndex => 19;
         public byte ShuttleAnalogResolverIndex => 20;
 
+        public long? Jog => jogShuttleResolver?.Jog;
+        public double? Shuttle => jogShuttleResolver?.Shuttle;
+
+        public double? TBarPosition => tBarResolver?.TBar;
+
         protected override uint ButtonsCount => 64;
         protected override uint[]? UnavailableButtons => new uint[] { 5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 72, 73, 74, 75 };
 

@@ -38,16 +38,22 @@ namespace XKeysSharp.Devices
 
     public interface IDeviceWithTBar
     {
+        double? TBarPosition { get; }
         byte TBarResolverIndex { get; }
     }
     public interface IDeviceWithJoystick
     {
+        double? JoystickX { get; }
+        double? JoystickY { get; }
+        double? JoystickZ { get; }
         byte? JoystickXResolverIndex { get; }
         byte? JoystickYResolverIndex { get; }
         byte? JoystickZResolverIndex { get; }
     }
     public interface IDeviceWithJogShuttle
     {
+        long? Jog { get; }
+        double? Shuttle { get; }
         byte JogAnalogResolverIndex { get; }
         byte ShuttleAnalogResolverIndex { get; }
     }

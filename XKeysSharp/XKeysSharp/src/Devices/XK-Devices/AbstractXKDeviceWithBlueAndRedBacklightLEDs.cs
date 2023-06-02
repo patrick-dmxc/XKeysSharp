@@ -9,10 +9,10 @@ namespace XKeysSharp.Devices
         protected abstract uint ButtonsCount { get; }
         protected virtual uint[]? UnavailableButtons { get; }
 
-        private TBarResolver? tBarResolver;
-        private JogShuttleResolver? jogShuttleResolver;
-        private JoystickResolver? joystickResolver;
-        private XK_ButtonResolver<ButtonWithBlueAndRedLED>? buttonResolver;
+        protected TBarResolver? tBarResolver { get; private set; }
+        protected JogShuttleResolver? jogShuttleResolver { get; private set; }
+        protected JoystickResolver? joystickResolver { get; private set; }
+        protected XK_ButtonResolver<ButtonWithBlueAndRedLED>? buttonResolver { get; private set; }
         public IReadOnlyCollection<ButtonWithBlueAndRedLED>? Buttons => buttonResolver?.Buttons;
 
         public override event PropertyChangedEventHandler? PropertyChanged;
@@ -36,6 +36,44 @@ namespace XKeysSharp.Devices
             return instance;
         }
         protected abstract AbstractXKDeviceWithBlueAndRedBacklightLEDs internalCreateXKDeviceFromPIEDevice(PIEDevice pieDevice);
+
+        protected override void onCreated()
+        {
+            base.onCreated();
+
+            if(this.tBarResolver!=null)
+                tBarResolver.PropertyChanged += TBarResolver_PropertyChanged;
+
+            if (this.joystickResolver != null)
+                joystickResolver.PropertyChanged += JoystickResolver_PropertyChanged;
+
+            if (this.jogShuttleResolver != null)
+                jogShuttleResolver.PropertyChanged += JogShuttleResolver_PropertyChanged;
+        }
+
+        private void TBarResolver_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(TBarResolver.TBar))
+                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IDeviceWithTBar.TBarPosition)));
+        }
+
+        private void JoystickResolver_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(JoystickResolver.X))
+                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IDeviceWithJoystick.JoystickX)));
+            if (e.PropertyName == nameof(JoystickResolver.Y))
+                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IDeviceWithJoystick.JoystickY)));
+            if (e.PropertyName == nameof(JoystickResolver.Z))
+                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IDeviceWithJoystick.JoystickZ)));
+        }
+
+        private void JogShuttleResolver_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(JogShuttleResolver.Jog))
+                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IDeviceWithJogShuttle.Jog)));
+            if (e.PropertyName == nameof(JogShuttleResolver.Shuttle))
+                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IDeviceWithJogShuttle.Shuttle)));
+        }
 
         public void SetBacklightIntensity(byte blue, byte red)
         {

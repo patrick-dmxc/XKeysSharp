@@ -46,9 +46,15 @@ namespace XKeysSharp.Devices
             instance.PIEDevice = pieDevice;
             instance.addResolver(snResolver);
             instance.addResolver(fwResolver);
+            instance.onCreated();
             return instance;
         }
         protected abstract AbstractDevice createFromPIEDevice(PIEDevice pieDevice);
+
+        protected virtual void onCreated()
+        {
+
+        }
 
         protected void addResolver(IResolver resolver)
         {

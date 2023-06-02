@@ -9,6 +9,8 @@ namespace XKeysSharp.Devices
 
         public byte TBarResolverIndex => 29;
 
+        public double? TBarPosition => tBarResolver?.TBar;
+
         protected override uint ButtonsCount => 124;
         protected override uint[]? UnavailableButtons => new uint[] { 108, 109, 110, 111 };
 

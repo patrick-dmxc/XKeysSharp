@@ -9,6 +9,8 @@ namespace XKeysSharp.Devices
 
         public byte TBarResolverIndex => throw new NotImplementedException();
 
+        public double? TBarPosition => throw new NotImplementedException();
+
         protected override uint ButtonsCount => 14;
 
         protected override AbstractXKDeviceWithRGBBacklightLEDs internalCreateXKDeviceFromPIEDevice(PIEDevice pieDevice)
