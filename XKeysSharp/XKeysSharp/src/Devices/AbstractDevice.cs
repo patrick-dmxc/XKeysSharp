@@ -1,19 +1,20 @@
 ﻿using PIEHidNetCore;
+using System.ComponentModel;
 using XKeysSharp.Devices.Resolver;
 using XKeysSharp.src;
 
 namespace XKeysSharp.Devices
 {
-    public abstract class AbstractDevice : IDevice, PIEDataHandler, PIEErrorHandler
+    public abstract class AbstractDevice : IDevice, PIEDataHandler, PIEErrorHandler, INotifyPropertyChanged
     {
+        public abstract int[] PIDs { get; }
         public abstract string Name { get; }
 
         protected PIEDevice? PIEDevice { get; private set; } = null;
         public bool IsDummy { get { return PIEDevice == null; } }
 
-        public virtual IReadOnlyCollection<Button>? Buttons { get; }
-
         public event EventHandler<EErrorMessage>? Error;
+        public abstract event PropertyChangedEventHandler? PropertyChanged;
 
         private List<IResolver> resolvers = new List<IResolver>();
 
@@ -77,7 +78,9 @@ namespace XKeysSharp.Devices
             resolvers.ForEach(resolver => resolver?.Resolve(data));
             HandleData(data);
         }
-        protected abstract void HandleData(byte[] data);
+        protected virtual void HandleData(byte[] data) 
+        {
+        }
 
         public void HandlePIEHidError(PIEDevice sourceDevices, int error)
         {

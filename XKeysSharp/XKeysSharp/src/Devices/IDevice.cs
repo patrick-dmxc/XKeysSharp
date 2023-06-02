@@ -17,4 +17,18 @@ namespace XKeysSharp.Devices
     {
         void SetGreenLEDState(ELEDState state);
     }
+    public interface IDeviceWithButtons<T> where T : IButton
+    {
+        IReadOnlyCollection<T>? Buttons { get; }
+    }
+
+    public interface IDeviceWithBlueBacklightLEDs
+    {
+        void SetBacklightIntensity(byte blue);
+    }
+
+    public interface IDeviceWithBlueAndRedBacklightLEDs
+    {
+        void SetBacklightIntensity(byte blue, byte red);
+    }
 }

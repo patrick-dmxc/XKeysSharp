@@ -1,21 +1,25 @@
-﻿using System.ComponentModel;
+﻿using PIEHidNetCore;
+using System.ComponentModel;
 
 namespace XKeysSharp.Devices.Resolver
 {
-    public class XKE_ButtonResolver : AbstractResolver
-    {
+    public class XK_ButtonResolver<T> : AbstractResolver where T : Button
+    { 
         public byte? MaxColumns { get; private set; }
         public byte? MaxRows { get; private set; }
 
-        private List<Button> buttons = new List<Button>();
-        public IReadOnlyCollection<Button>? Buttons => buttons.AsReadOnly();
+        private List<T> buttons = new List<T>();
+        public IReadOnlyCollection<T>? Buttons => buttons.AsReadOnly();
 
         public override event PropertyChangedEventHandler? PropertyChanged;
 
-        public XKE_ButtonResolver(in uint buttonsCount)
+        public XK_ButtonResolver(in PIEDevice pIEDevice, in uint buttonsCount)
         {
             for (uint i = 0; i < buttonsCount; i++)
-                buttons.Add(new Button(i));
+            {
+                T button = (T)Activator.CreateInstance(typeof(T), pIEDevice, i, buttonsCount)!;
+                buttons.Add(button);
+            }
         }
 
         public override void Resolve(byte[] data)
