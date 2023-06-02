@@ -12,7 +12,6 @@ namespace XKeysSharp.Devices
         public IReadOnlyCollection<ButtonWithBlueAndRedLED>? Buttons => buttonResolver?.Buttons;
 
         public override event PropertyChangedEventHandler? PropertyChanged;
-        public byte Firmware { get; private set; }
 
 
         protected override AbstractXKDevice createXKDeviceFromPIEDevice(PIEDevice pieDevice)
