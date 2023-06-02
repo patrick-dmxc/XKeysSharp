@@ -9,8 +9,8 @@ namespace XKeysSharp.Devices.Resolver
 
         public override event PropertyChangedEventHandler? PropertyChanged;
 
-        private byte? jog;
-        public byte? Jog
+        private long? jog;
+        public long? Jog
         {
             get { return jog; }
             private set
@@ -21,8 +21,8 @@ namespace XKeysSharp.Devices.Resolver
                 this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Jog)));
             }
         }
-        private byte? shuttle;
-        public byte? Shuttle
+        private double? shuttle;
+        public double? Shuttle
         {
             get { return shuttle; }
             private set
@@ -44,8 +44,13 @@ namespace XKeysSharp.Devices.Resolver
         {
             if (data[2] < 4)
             {
-                Jog = data[JogIndex];
-                Shuttle = data[ShuttleIndex];
+                var _jog = data[JogIndex];
+                if (_jog == 1)//cw
+                    Jog++;
+                else if (_jog == 255)//ccw
+                    Jog--;
+                var _shuttle = (sbyte)data[ShuttleIndex];
+                Shuttle = _shuttle / 7.0;
             }
         }
     }
