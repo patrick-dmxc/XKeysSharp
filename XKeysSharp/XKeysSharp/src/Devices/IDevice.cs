@@ -1,6 +1,4 @@
-﻿using XKeysSharp;
-
-namespace XKeysSharp.Devices
+﻿namespace XKeysSharp.Devices
 {
     public interface IDevice
     {
