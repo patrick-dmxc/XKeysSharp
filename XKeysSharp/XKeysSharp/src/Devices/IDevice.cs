@@ -31,4 +31,29 @@ namespace XKeysSharp.Devices
     {
         void SetBacklightIntensity(byte blue, byte red);
     }
+
+    public interface IDeviceWithRGBBacklightLEDs
+    {
+    }
+
+    public interface IDeviceWithTBar
+    {
+        byte TBarResolverIndex { get; }
+    }
+    public interface IDeviceWithJoystick
+    {
+        byte? JoystickXResolverIndex { get; }
+        byte? JoystickYResolverIndex { get; }
+        byte? JoystickZResolverIndex { get; }
+    }
+    public interface IDeviceWithJogShuttle
+    {
+        byte JogAnalogResolverIndex { get; }
+        byte ShuttleAnalogResolverIndex { get; }
+    }
+    public interface IDeviceWithLCD
+    {
+        void SetLCDTopText(string text, bool backlightOn);
+        void SetLCDBottomText(string text, bool backlightOn);
+    }
 }

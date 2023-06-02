@@ -13,11 +13,20 @@ namespace XKeysSharp.Devices.Resolver
 
         public override event PropertyChangedEventHandler? PropertyChanged;
 
-        public XK_ButtonResolver(in PIEDevice pIEDevice, in uint buttonsCount)
+        public XK_ButtonResolver(in PIEDevice pIEDevice, in uint buttonsCount, uint[]? unavailableButtonIndexes=null)
         {
+            uint offset = 0;
+            uint index = 0;
             for (uint i = 0; i < buttonsCount; i++)
             {
-                T button = (T)Activator.CreateInstance(typeof(T), pIEDevice, i, buttonsCount)!;
+                index = i + offset;
+                if (unavailableButtonIndexes != null)
+                    while (unavailableButtonIndexes.Any(u => u == index))
+                    {
+                        offset++;
+                        index = i + offset;
+                    }
+                T button = (T)Activator.CreateInstance(typeof(T), pIEDevice, index, buttonsCount)!;
                 buttons.Add(button);
             }
         }

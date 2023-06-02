@@ -69,4 +69,10 @@ namespace XKeysSharp
             WriteData(0, 181, (byte)(this.Number + this.Count), (byte)state);
         }
     }
+    public class ButtonWithRGBLED : Button, IButtonWithRGBLED
+    {
+        public ButtonWithRGBLED(in PIEDevice pIEDevice, in uint number, in uint count) : base(pIEDevice, number, count)
+        {
+        }
+    }
 }

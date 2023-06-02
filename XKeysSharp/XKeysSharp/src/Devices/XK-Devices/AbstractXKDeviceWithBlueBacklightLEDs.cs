@@ -7,6 +7,7 @@ namespace XKeysSharp.Devices
     public abstract class AbstractXKDeviceWithBlueBacklightLEDs : AbstractXKDevice,IDeviceWithBlueBacklightLEDs, IDeviceWithButtons<ButtonWithBlueLED>
     {
         protected abstract uint ButtonsCount { get; }
+        protected virtual uint[]? UnavailableButtons { get; }
 
         private XK_ButtonResolver<ButtonWithBlueLED>? buttonResolver;
         public IReadOnlyCollection<ButtonWithBlueLED>? Buttons => buttonResolver?.Buttons;
