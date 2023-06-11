@@ -1,37 +1,36 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>0.0.7</Version>
-	<RepositoryUrl>https://github.com/patrick-dmxc/XKeysSharp</RepositoryUrl>
-	<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
-	<PackageTags>XKeys X-Keys XKE XK Jog Shuttle T-Bar Joystick PIEngineering</PackageTags>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\LICENSE">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="..\README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <Content Include="..\lib\netstandard2.0\PIEHidNetCore.dll">
-      <Pack>True</Pack>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Reference Include="PIEHidNetCore"  PrivateAssets="all" >
-      <Pack>True</Pack>
-      <HintPath>..\lib\netstandard2.0\PIEHidNetCore.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<Version>0.0.8</Version>
+		<RepositoryUrl>https://github.com/patrick-dmxc/XKeysSharp</RepositoryUrl>
+		<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+		<PackageTags>XKeys X-Keys XKE XK Jog Shuttle T-Bar Joystick PIEngineering</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0"/>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\lib\netstandard2.0\PIEHidNetCore.dll">
+			<Pack>True</Pack>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<PackagePath>contentFiles;content</PackagePath>
+		</None>
+		<Reference Include="PIEHidNetCore" PrivateAssets="all">
+			<Pack>True</Pack>
+			<HintPath>..\lib\netstandard2.0\PIEHidNetCore.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 </Project>
