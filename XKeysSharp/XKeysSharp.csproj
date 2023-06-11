@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
@@ -26,13 +26,13 @@
 			<Pack>True</Pack>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
-			<PackagePath>\;lib\net6.0</PackagePath>
+			<PackagePath>lib\net6.0</PackagePath>
 		</None>
 		<Reference Include="PIEHidNetCore" PrivateAssets="all">
 			<Pack>True</Pack>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
-			<PackagePath>\;lib\net6.0</PackagePath>
+			<PackagePath>lib\net6.0</PackagePath>
 			<HintPath>..\lib\net6.0\PIEHidNetCore.dll</HintPath>
 		</Reference>
 	</ItemGroup>
