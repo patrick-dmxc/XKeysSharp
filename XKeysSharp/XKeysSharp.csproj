@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<Version>0.0.12</Version>
+		<Version>0.0.13</Version>
 		<RepositoryUrl>https://github.com/patrick-dmxc/XKeysSharp</RepositoryUrl>
 		<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
 		<PackageTags>XKeys X-Keys XKE XK Jog Shuttle T-Bar Joystick PIEngineering</PackageTags>
@@ -22,18 +22,18 @@
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Include="..\lib\netstandard2.0\PIEHidNetCore.dll">
+		<None Include="..\lib\net6.0\PIEHidNetCore.dll">
 			<Pack>True</Pack>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
-			<PackagePath>lib\netstandard2.0</PackagePath>
+			<PackagePath>\;lib\net6.0</PackagePath>
 		</None>
 		<Reference Include="PIEHidNetCore" PrivateAssets="all">
 			<Pack>True</Pack>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
-			<PackagePath>\lib\netstandard2.0</PackagePath>
-			<HintPath>..\lib\netstandard2.0\PIEHidNetCore.dll</HintPath>
+			<PackagePath>\;lib\net6.0</PackagePath>
+			<HintPath>..\lib\net6.0\PIEHidNetCore.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 </Project>
