@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Version>0.0.2</Version>
+    <Version>0.0.3</Version>
 	<RepositoryUrl>https://github.com/patrick-dmxc/XKeysSharp</RepositoryUrl>
 	<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
 	<PackageTags>XKeys X-Keys XKE XK Jog Shuttle T-Bar Joystick PIEngineering</PackageTags>
@@ -22,6 +22,10 @@
       <PackagePath>\</PackagePath>
     </None>
     <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="dep\PIEHidNetCore.dll">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
