@@ -21,32 +21,47 @@ namespace XKeysSharp
 
         private XKeysSharp() 
         {
+            ApplicationLogging.LoggerFactory= Tools.LoggerFactory;
+            _logger = ApplicationLogging.CreateLogger<XKeysSharp>();
             findDeviceTypes();
-            ApplicationLogging.CreateLogger<XKeysSharp>();
         }
         private void findDeviceTypes()
         {
-            var type = typeof(AbstractDevice);
-            var types = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(s => s.GetTypes())
-                .Where(p => type.IsAssignableFrom(p) && !p.IsAbstract && !p.IsInterface).ToList();
+            try
+            {
+                var type = typeof(AbstractDevice);
+                var types = AppDomain.CurrentDomain.GetAssemblies()
+                    .SelectMany(s => s.GetTypes())
+                    .Where(p => type.IsAssignableFrom(p) && !p.IsAbstract && !p.IsInterface).ToList();
 
-            _logger?.Log(LogLevel.Information, "Search DeviceTypes");
-            foreach (var t in types)
-                RegisterDeviceType(t);
+                _logger?.Log(LogLevel.Information, "Search DeviceTypes");
+                foreach (var t in types)
+                    RegisterDeviceType(t);
+            }
+            catch(Exception ex)
+            {
+                _logger?.LogError(ex, string.Empty);
+            }
         }
         public void RegisterDeviceType(Type type)
         {
-            if (type.GetConstructors().Any(c => c.GetParameters().Length == 0))
+            try
             {
-                _logger?.Log(LogLevel.Information, $"Registered: {type.Name}");
-                AbstractDevice? instance = (AbstractDevice?)Activator.CreateInstance(type);
-                if (instance != null)
-                    deviceTypes.Add(instance);
+                if (type.GetConstructors().Any(c => c.GetParameters().Length == 0))
+                {
+                    _logger?.Log(LogLevel.Information, $"Registered: {type.Name}");
+                    AbstractDevice? instance = (AbstractDevice?)Activator.CreateInstance(type);
+                    if (instance != null)
+                        deviceTypes.Add(instance);
+                }
+                else
+                {
+                    _logger?.Log(LogLevel.Information, $"NOT Registered: {type.Name}");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                _logger?.Log(LogLevel.Information, $"NOT Registered: {type.Name}");
+                _logger?.LogError(ex, string.Empty);
             }
         }
 
