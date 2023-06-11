@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using PIEHidNetCore;
+using System;
 using XKeysSharp.Devices;
 
 namespace XKeysSharp
@@ -30,8 +31,20 @@ namespace XKeysSharp
             try
             {
                 var type = typeof(AbstractDevice);
-                var types = AppDomain.CurrentDomain.GetAssemblies()
-                    .SelectMany(s => s.GetTypes())
+                var assamblys = AppDomain.CurrentDomain.GetAssemblies().Where(s => !(s.FullName.StartsWith("System.") || s.FullName.StartsWith("Microsoft.") || s.FullName.StartsWith("net") || s.FullName.StartsWith("NAudio"))).ToList();
+                List<Type> types = new();
+                foreach(var a in assamblys)
+                {
+                    try
+                    {
+                        types.AddRange(a.GetTypes());
+                    }
+                    catch(Exception e)
+                    {
+                        _logger?.LogError(e, a.FullName);
+                    }
+                }
+                types = types
                     .Where(p => type.IsAssignableFrom(p) && !p.IsAbstract && !p.IsInterface).ToList();
 
                 _logger?.Log(LogLevel.Information, "Search DeviceTypes");
