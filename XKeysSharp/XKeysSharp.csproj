@@ -28,7 +28,7 @@
     <Content Include="lib\netstandard2.0\PIEHidNetCore.dll">
       <Pack>True</Pack>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Reference Include="PIEHidNetCore"  PrivateAssets="all" >
       <Pack>True</Pack>
       <HintPath>lib\netstandard2.0\PIEHidNetCore.dll</HintPath>
