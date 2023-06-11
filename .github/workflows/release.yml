@@ -21,8 +21,7 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with:
-        path: XKeysSharp/bin/Release/net6.0/XKeysSharp.dll
-        path: XKeysSharp/bin/Release/net6.0/PIEHidNetCore.dll
+        path: XKeysSharp/bin/Release/net6.0/*.dll
     - name: Publish XKeysSharp
       uses: brandedoutcast/publish-nuget@v2.5.2
       with:
