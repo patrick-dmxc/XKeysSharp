@@ -25,14 +25,13 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <Content Include="lib\netstandard2.0\PIEHidNetCore.dll">
+    <Content Include="..\lib\netstandard2.0\PIEHidNetCore.dll">
       <Pack>True</Pack>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Reference Include="PIEHidNetCore"  PrivateAssets="all" >
       <Pack>True</Pack>
-      <HintPath>lib\netstandard2.0\PIEHidNetCore.dll</HintPath>
+      <HintPath>..\lib\netstandard2.0\PIEHidNetCore.dll</HintPath>
     </Reference>
   </ItemGroup>
-
 </Project>
