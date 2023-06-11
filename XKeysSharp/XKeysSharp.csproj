@@ -25,7 +25,7 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <Reference Include="PIEHidNetCore">
+    <Reference Include="PIEHidNetCore"  PrivateAssets="all" >
       <HintPath>dep\PIEHidNetCore.dll</HintPath>
     </Reference>
   </ItemGroup>
