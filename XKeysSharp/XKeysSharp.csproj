@@ -26,13 +26,13 @@
 			<Pack>True</Pack>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
-			<PackagePath>\;lib\netstandard2.0</PackagePath>
+			<PackagePath>lib\netstandard2.0</PackagePath>
 		</None>
 		<Reference Include="PIEHidNetCore" PrivateAssets="all">
 			<Pack>True</Pack>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
-			<PackagePath>\;lib\netstandard2.0</PackagePath>
+			<PackagePath>lib\netstandard2.0</PackagePath>
 			<HintPath>..\lib\netstandard2.0\PIEHidNetCore.dll</HintPath>
 		</Reference>
 	</ItemGroup>
