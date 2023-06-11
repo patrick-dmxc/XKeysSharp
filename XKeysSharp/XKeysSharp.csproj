@@ -4,7 +4,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
-		<Version>0.0.9</Version>
+		<Version>0.0.10</Version>
 		<RepositoryUrl>https://github.com/patrick-dmxc/XKeysSharp</RepositoryUrl>
 		<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
 		<PackageTags>XKeys X-Keys XKE XK Jog Shuttle T-Bar Joystick PIEngineering</PackageTags>
@@ -26,10 +26,13 @@
 			<Pack>True</Pack>
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
-			<PackagePath>\</PackagePath>
+			<PackagePath>\;lib\netstandard2.0</PackagePath>
 		</None>
 		<Reference Include="PIEHidNetCore" PrivateAssets="all">
 			<Pack>True</Pack>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<PackagePath>\;lib\netstandard2.0</PackagePath>
 			<HintPath>..\lib\netstandard2.0\PIEHidNetCore.dll</HintPath>
 		</Reference>
 	</ItemGroup>
