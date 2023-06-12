@@ -18,7 +18,7 @@ namespace XKeysSharp.Devices
 
         private List<IResolver> resolvers = new List<IResolver>();
 
-        protected virtual SerialNumberResolver snResolver { get; set; } = new SerialNumberResolver();
+        protected virtual SerialNumberResolver snResolver { get; private set; }
         public string? SerialNumber
         {
             get
@@ -28,7 +28,7 @@ namespace XKeysSharp.Devices
         }
 
 
-        protected virtual FirmwareVersionResolver fwResolver { get; set; } = new FirmwareVersionResolver();
+        protected virtual FirmwareVersionResolver fwResolver { get; private set; }
         public byte? FirmwareVersion
         {
             get
@@ -44,8 +44,10 @@ namespace XKeysSharp.Devices
                 throw new NotSupportedException("Create new Instances is only allowed by Dummys");
             var instance = createFromPIEDevice(pieDevice);
             instance.PIEDevice = pieDevice;
-            instance.addResolver(snResolver);
-            instance.addResolver(fwResolver);
+            instance.snResolver = new SerialNumberResolver();
+            instance.fwResolver = new FirmwareVersionResolver();
+            instance.addResolver(instance.snResolver);
+            instance.addResolver(instance.fwResolver);
             instance.onCreated();
             return instance;
         }
@@ -65,13 +67,15 @@ namespace XKeysSharp.Devices
             resolvers.Add(resolver);
         }
         public void Connect()
-        {
+        { 
             if (PIEDevice == null)
                 throw new NullReferenceException($"{nameof(PIEDevice)} is null");
 
             PIEDevice.SetupInterface();
             PIEDevice.SetErrorCallback(this);
             PIEDevice.SetDataCallback(this);
+
+            RequestSerialNumber();
             RequestDescriptor();
             RequestData();
         }

@@ -8,7 +8,7 @@ foreach (var device in devices)
     device.Connect();
 foreach (var device in devices.OfType<XKeysSharp.Devices.AbstractXKDeviceWithBlueAndRedBacklightLEDs>())
 {
-    device.RequestSerialNumber();
+    Console.WriteLine(device.SerialNumber);
     Task.Run(async () =>
     {
         for (int i = 0; i < 10; i++)
