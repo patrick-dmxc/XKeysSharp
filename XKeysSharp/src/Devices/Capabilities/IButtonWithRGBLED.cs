@@ -1,7 +1,7 @@
 ﻿namespace XKeysSharp
 {
-    public interface IButtonWithRGBLED
+    public interface IButtonWithRGBLED : IButton
     {
-
+        ///ToDo
     }
 }

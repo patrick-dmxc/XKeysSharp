@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace XKeysSharp.Devices
 {
-    public abstract class AbstractXKDevice : AbstractDevice, IDeviceWithRedLED, IDeviceWithGreenLED
+    public abstract class AbstractXKDevice : AbstractDevice, IDeviceWithRedLED, IDeviceWithGreenLED, IDeviceWithFlashingLEDs
     {
 
         public override event PropertyChangedEventHandler? PropertyChanged;

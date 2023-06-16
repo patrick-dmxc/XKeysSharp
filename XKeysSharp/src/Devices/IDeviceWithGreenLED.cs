@@ -1,6 +1,6 @@
 ﻿namespace XKeysSharp.Devices
 {
-    public interface IDeviceWithGreenLED
+    public interface IDeviceWithGreenLED : IDevice
     {
         void SetGreenLEDState(ELEDState state);
     }

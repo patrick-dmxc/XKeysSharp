@@ -5,7 +5,7 @@ using XKeysSharp.src;
 
 namespace XKeysSharp.Devices
 {
-    public abstract class AbstractDevice : IDevice, PIEDataHandler, PIEErrorHandler, INotifyPropertyChanged
+    public abstract class AbstractDevice : IDevice, PIEDataHandler, PIEErrorHandler
     {
         public abstract int[] PIDs { get; }
         public abstract string Name { get; }

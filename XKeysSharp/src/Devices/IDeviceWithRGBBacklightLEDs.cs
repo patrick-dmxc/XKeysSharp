@@ -1,6 +1,6 @@
 ﻿namespace XKeysSharp.Devices
 {
-    public interface IDeviceWithRGBBacklightLEDs
+    public interface IDeviceWithRGBBacklightLEDs : IDevice
     {
     }
 }

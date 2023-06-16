@@ -1,6 +1,8 @@
-﻿namespace XKeysSharp.Devices
+﻿using System.ComponentModel;
+
+namespace XKeysSharp.Devices
 {
-    public interface IDevice
+    public interface IDevice: INotifyPropertyChanged
     {
         string Name { get; }
         string? SerialNumber { get; }

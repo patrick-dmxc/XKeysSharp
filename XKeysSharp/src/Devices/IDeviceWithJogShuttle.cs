@@ -1,6 +1,6 @@
 ﻿namespace XKeysSharp.Devices
 {
-    public interface IDeviceWithJogShuttle
+    public interface IDeviceWithJogShuttle : IDevice
     {
         long? Jog { get; }
         double? Shuttle { get; }

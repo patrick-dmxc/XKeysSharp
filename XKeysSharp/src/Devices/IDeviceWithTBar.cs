@@ -1,6 +1,6 @@
 ﻿namespace XKeysSharp.Devices
 {
-    public interface IDeviceWithTBar
+    public interface IDeviceWithTBar : IDevice
     {
         double? TBarPosition { get; }
         byte TBarResolverIndex { get; }
