@@ -23,16 +23,25 @@ namespace XKeysSharp.Devices
             var instance = internalCreateXKDeviceFromPIEDevice(pieDevice);
 
             if (instance is IDeviceWithTBar deviceWithTBar)
+            {
                 instance.tBarResolver = new TBarResolver(deviceWithTBar.TBarResolverIndex);
-
+                instance.addResolver(instance.tBarResolver!);
+            }
             if (instance is IDeviceWithJoystick deviceWithJoystick)
+            {
                 instance.joystickResolver = new JoystickResolver(deviceWithJoystick.JoystickXResolverIndex, deviceWithJoystick.JoystickYResolverIndex, deviceWithJoystick.JoystickZResolverIndex);
-
+                instance.addResolver(instance.joystickResolver!);
+            }
             if (instance is IDeviceWithJogShuttle deviceWithJogShuttle)
+            {
                 instance.jogShuttleResolver = new JogShuttleResolver(deviceWithJogShuttle.JogAnalogResolverIndex, deviceWithJogShuttle.ShuttleAnalogResolverIndex);
-
+                instance.addResolver(instance.jogShuttleResolver!);
+            }
             if (instance is IDeviceWithFaders deviceWithFaders)
+            {
                 instance.faderResolver = new XBA_FaderResolver(pieDevice, deviceWithFaders.FadersCount);
+                instance.addResolver(instance.faderResolver!);
+            }
 
             instance.buttonResolver = new XK_ButtonResolver<ButtonWithRGBLED>(pieDevice, ButtonsCount);
             instance.addResolver(instance.buttonResolver!);
