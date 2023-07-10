@@ -74,5 +74,15 @@ namespace XKeysSharp
         public ButtonWithRGBLED(in PIEDevice pIEDevice, in uint number, in uint count) : base(pIEDevice, number, count)
         {
         }
+
+        public void SetLowerLEDState(byte red, byte green, byte blue, ELEDState state)
+        {
+            WriteData(0, 165, (byte)this.Number, 0, red, green, blue, (byte)state);
+        }
+
+        public void SetUpperLEDState(byte red, byte green, byte blue, ELEDState state)
+        {
+            WriteData(0, 165, (byte)this.Number, 1, red, green, blue, (byte)state);
+        }
     }
 }

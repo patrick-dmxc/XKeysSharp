@@ -6,7 +6,6 @@ namespace XKeysSharp.Devices
 {
     public abstract class AbstractXKDeviceWithBlueAndRedBacklightLEDs : AbstractXKDevice, IDeviceWithBlueAndRedBacklightLEDs, IDeviceWithButtons<ButtonWithBlueAndRedLED>
     {
-        protected abstract uint ButtonsCount { get; }
         protected virtual uint[]? UnavailableButtons { get; }
 
         protected TBarResolver? tBarResolver { get; private set; }
@@ -31,7 +30,7 @@ namespace XKeysSharp.Devices
             if (instance is IDeviceWithJogShuttle deviceWithJogShuttle)
                 instance.jogShuttleResolver = new JogShuttleResolver(deviceWithJogShuttle.JogAnalogResolverIndex, deviceWithJogShuttle.ShuttleAnalogResolverIndex);
 
-            instance.buttonResolver = new XK_ButtonResolver<ButtonWithBlueAndRedLED>(pieDevice, 40);
+            instance.buttonResolver = new XK_ButtonResolver<ButtonWithBlueAndRedLED>(pieDevice, ButtonsCount);
             instance.addResolver(instance.buttonResolver!);
             return instance;
         }

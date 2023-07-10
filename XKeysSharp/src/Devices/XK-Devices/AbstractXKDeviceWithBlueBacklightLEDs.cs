@@ -6,7 +6,6 @@ namespace XKeysSharp.Devices
 {
     public abstract class AbstractXKDeviceWithBlueBacklightLEDs : AbstractXKDevice,IDeviceWithBlueBacklightLEDs, IDeviceWithButtons<ButtonWithBlueLED>
     {
-        protected abstract uint ButtonsCount { get; }
         protected virtual uint[]? UnavailableButtons { get; }
 
         private XK_ButtonResolver<ButtonWithBlueLED>? buttonResolver;
@@ -18,7 +17,7 @@ namespace XKeysSharp.Devices
         protected override AbstractXKDevice createXKDeviceFromPIEDevice(PIEDevice pieDevice)
         {
             var instance = internalCreateXKDeviceFromPIEDevice(pieDevice);
-            instance.buttonResolver = new XK_ButtonResolver<ButtonWithBlueLED>(pieDevice, 40);
+            instance.buttonResolver = new XK_ButtonResolver<ButtonWithBlueLED>(pieDevice, ButtonsCount);
             instance.addResolver(instance.buttonResolver!);
             return instance;
         }

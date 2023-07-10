@@ -5,6 +5,7 @@ namespace XKeysSharp.Devices
 {
     public abstract class AbstractXKDevice : AbstractDevice, IDeviceWithRedLED, IDeviceWithGreenLED, IDeviceWithFlashingLEDs
     {
+        protected abstract uint ButtonsCount { get; }
 
         public override event PropertyChangedEventHandler? PropertyChanged;
 

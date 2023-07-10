@@ -2,6 +2,7 @@
 {
     public interface IButtonWithRGBLED : IButton
     {
-        ///ToDo
+        void SetUpperLEDState(byte red, byte green, byte blue, ELEDState state);
+        void SetLowerLEDState(byte red, byte green, byte blue, ELEDState state);
     }
 }
