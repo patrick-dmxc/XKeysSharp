@@ -1,14 +1,30 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using XKeysSharp.Devices;
 using XKeys = XKeysSharp.XKeysSharp;
 
 Console.WriteLine("Hello, World!");
 
-var devices = XKeys.Instance.getAllDevices();
-foreach (var device in devices)
-    device.Connect();
-foreach (var device in devices.OfType<XKeysSharp.Devices.AbstractXKDeviceWithBlueAndRedBacklightLEDs>())
+XKeys.Instance.Connected += Instance_Connected;
+XKeys.Instance.Disconnected += Instance_Disconnected;
+
+void Instance_Connected(object? sender, IDevice e)
 {
-    Console.WriteLine(device.SerialNumber);
+    if (!string.IsNullOrWhiteSpace(e.SerialNumber))
+    {
+        Console.WriteLine($"Connected: {e.SerialNumber}");
+        var dev = e as AbstractXKDeviceWithBlueAndRedBacklightLEDs;
+        if (dev != null)
+            test(dev);
+    }
+}
+
+void Instance_Disconnected(object? sender, IDevice e)
+{
+    Console.WriteLine($"Disconnected: {e.SerialNumber}");
+}
+
+void test(AbstractXKDeviceWithBlueAndRedBacklightLEDs device)
+{
     Task.Run(async () =>
     {
         for (int i = 0; i < 10; i++)

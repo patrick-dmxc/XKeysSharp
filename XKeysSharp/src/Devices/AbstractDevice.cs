@@ -5,13 +5,13 @@ using XKeysSharp.src;
 
 namespace XKeysSharp.Devices
 {
-    public abstract class AbstractDevice : IDevice, PIEDataHandler, PIEErrorHandler
+    public abstract class AbstractDevice : IDevice, IDeviceP, PIEDataHandler, PIEErrorHandler
     {
         public abstract int[] PIDs { get; }
         public abstract string Name { get; }
 
-        protected PIEDevice? PIEDevice { get; private set; } = null;
-        public bool IsDummy { get { return PIEDevice == null; } }
+        PIEDevice? IDeviceP.PIEDevice { get; set; } = null;
+        public bool IsDummy { get { return ((IDeviceP)this).PIEDevice == null; } }
 
         public event EventHandler<EErrorMessage>? Error;
         public abstract event PropertyChangedEventHandler? PropertyChanged;
@@ -43,7 +43,7 @@ namespace XKeysSharp.Devices
             if (!IsDummy)
                 throw new NotSupportedException("Create new Instances is only allowed by Dummys");
             var instance = createFromPIEDevice(pieDevice);
-            instance.PIEDevice = pieDevice;
+            ((IDeviceP)instance).PIEDevice = pieDevice;
             instance.snResolver = new SerialNumberResolver();
             instance.fwResolver = new FirmwareVersionResolver();
             instance.addResolver(instance.snResolver);
@@ -66,23 +66,24 @@ namespace XKeysSharp.Devices
                 return;
             resolvers.Add(resolver);
         }
-        public void Connect()
+        public async Task Connect()
         { 
-            if (PIEDevice == null)
+            if (((IDeviceP)this).PIEDevice == null)
                 throw new NullReferenceException($"{nameof(PIEDevice)} is null");
 
-            PIEDevice.SetupInterface();
-            PIEDevice.SetErrorCallback(this);
-            PIEDevice.SetDataCallback(this);
+            ((IDeviceP)this).PIEDevice.SetupInterface();
+            ((IDeviceP)this).PIEDevice.SetErrorCallback(this);
+            ((IDeviceP)this).PIEDevice.SetDataCallback(this);
 
             RequestSerialNumber();
             RequestDescriptor();
             RequestData();
+            await Task.Delay(200);
         }
 
         public void HandlePIEHidData(byte[] data, PIEDevice sourceDevice, int error)
         {
-            if (sourceDevice != this.PIEDevice)
+            if (sourceDevice != ((IDeviceP)this).PIEDevice)
                 return;
 
             resolvers.ForEach(resolver => resolver?.Resolve(data));
@@ -100,14 +101,14 @@ namespace XKeysSharp.Devices
         protected void WriteData(params byte[] data)
         {
 
-            if (PIEDevice == null)
+            if (((IDeviceP)this).PIEDevice == null)
                 return;
-            var wData = new byte[PIEDevice.WriteLength];
+            var wData = new byte[((IDeviceP)this).PIEDevice.WriteLength];
             for (int i = 0; i < Math.Min(data.Length, wData.Length); i++)
                 wData[i] = data[i];
             int result = 404;
 
-            while (result == 404) { result = PIEDevice.WriteData(wData); }
+            while (result == 404) { result = ((IDeviceP)this).PIEDevice.WriteData(wData); }
             //if (result != 0)
             //    throw new Exception(((EErrorMessage)result).ToString());
         }

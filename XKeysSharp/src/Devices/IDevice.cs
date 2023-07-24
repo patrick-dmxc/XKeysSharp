@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using PIEHidNetCore;
+using System.ComponentModel;
 
 namespace XKeysSharp.Devices
 {
@@ -7,6 +8,10 @@ namespace XKeysSharp.Devices
         string Name { get; }
         string? SerialNumber { get; }
         byte? FirmwareVersion { get; }
-        void Connect();
+        Task Connect();
+    }
+    public interface IDeviceP : IDevice
+    {
+        PIEDevice? PIEDevice { get; set; }
     }
 }

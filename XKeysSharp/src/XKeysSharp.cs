@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using PIEHidNetCore;
 using System;
+using System.IO;
 using XKeysSharp.Devices;
 
 namespace XKeysSharp
@@ -18,13 +19,75 @@ namespace XKeysSharp
                 return instance;
             }
         }
+
+        public event EventHandler<IDevice> Connected;
+        public event EventHandler<IDevice> Disconnected;
+        private List<IDeviceP> devices= new List<IDeviceP>();
+        private List<string> deadEndPath= new List<string>();
+        public IReadOnlyCollection<IDevice> Devices
+        {
+            get
+            {
+                return devices.AsReadOnly();
+            }
+        }
+        private Thread loopThread;
         private static List<AbstractDevice> deviceTypes { get; } = new();
 
-        private XKeysSharp() 
+        private XKeysSharp()
         {
-            ApplicationLogging.LoggerFactory= Tools.LoggerFactory;
+            ApplicationLogging.LoggerFactory = Tools.LoggerFactory;
             _logger = ApplicationLogging.CreateLogger<XKeysSharp>();
             findDeviceTypes();
+            loopThread = new Thread(
+                async () =>
+                {
+                    do
+                    {
+                        await Task.Delay(2000);
+                        var pds = PIEDevice.EnumeratePIE();
+                        foreach (var pd in pds)
+                        {
+                            bool any;
+                            lock (devices)
+                                any = devices.Any(d => d.PIEDevice!.Path.Equals(pd.Path));
+                            if (!any)
+                            {
+
+                                var _new = createDeviceFromPIEDevice(pd);
+                                if (_new == null)
+                                    break;
+
+                                await _new.Connect();
+                                if (string.IsNullOrWhiteSpace(_new.SerialNumber))
+                                    break;
+
+                                lock (devices)
+                                    devices.Add(_new);
+                                Connected?.Invoke(this, _new);
+
+                            }
+                        }
+
+                        lock (devices)
+                            foreach (var path in devices.Select(d => d.PIEDevice!.Path).ToArray())
+                            {
+                                if (!pds.Any(pd => pd.Path.Equals(path)))
+                                {
+                                    var devs = devices.Where(d => d.PIEDevice!.Path.Equals(path)).ToArray();
+                                    foreach (var d in devs)
+                                    {
+                                        devices.Remove(d);
+                                        Disconnected?.Invoke(this, d);
+                                    }
+                                }
+                            }
+                    }
+                    while (true);
+                });
+            loopThread.IsBackground = true;
+            loopThread.Name = "XKeysSharp";
+            loopThread.Start();
         }
         private void findDeviceTypes()
         {
@@ -78,7 +141,7 @@ namespace XKeysSharp
             }
         }
 
-        public IEnumerable<IDevice> getAllDevices()
+        private IEnumerable<IDevice> getAllDevices()
         {
             List<IDevice> result = new();
             var pieDevices = PIEDevice.EnumeratePIE();
