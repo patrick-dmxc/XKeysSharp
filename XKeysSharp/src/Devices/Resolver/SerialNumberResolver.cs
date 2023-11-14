@@ -12,8 +12,8 @@ namespace XKeysSharp.Devices.Resolver
             {
                 if (string.Equals(serialNumber, value))
                     return;
-                    serialNumber = value;
-                this.PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(SerialNumber)));
+                serialNumber = value;
+                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SerialNumber)));
             }
         }
 

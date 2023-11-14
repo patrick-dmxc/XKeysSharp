@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
 using PIEHidNetCore;
-using System;
-using System.IO;
 using XKeysSharp.Devices;
 
 namespace XKeysSharp
@@ -22,8 +20,7 @@ namespace XKeysSharp
 
         public event EventHandler<IDevice> Connected;
         public event EventHandler<IDevice> Disconnected;
-        private List<IDeviceP> devices= new List<IDeviceP>();
-        private List<string> deadEndPath= new List<string>();
+        private List<IDeviceP> devices = new List<IDeviceP>();
         public IReadOnlyCollection<IDevice> Devices
         {
             get
@@ -96,13 +93,13 @@ namespace XKeysSharp
                 var type = typeof(AbstractDevice);
                 var assamblys = AppDomain.CurrentDomain.GetAssemblies().Where(s => !(s.FullName.StartsWith("System.") || s.FullName.StartsWith("Microsoft.") || s.FullName.StartsWith("net") || s.FullName.StartsWith("NAudio"))).ToList();
                 List<Type> types = new();
-                foreach(var a in assamblys)
+                foreach (var a in assamblys)
                 {
                     try
                     {
                         types.AddRange(a.GetTypes());
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         _logger?.LogError(e, a.FullName);
                     }
@@ -114,7 +111,7 @@ namespace XKeysSharp
                 foreach (var t in types)
                     RegisterDeviceType(t);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _logger?.LogError(ex, string.Empty);
             }

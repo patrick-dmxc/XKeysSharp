@@ -13,7 +13,7 @@ namespace XKeysSharp.Devices.Resolver
                 if (firmwareVersion == value)
                     return;
                 firmwareVersion = value;
-                this.PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(FirmwareVersion)));
+                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FirmwareVersion)));
             }
         }
 

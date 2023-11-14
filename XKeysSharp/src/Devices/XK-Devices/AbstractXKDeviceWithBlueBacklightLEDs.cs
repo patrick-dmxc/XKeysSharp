@@ -4,7 +4,7 @@ using XKeysSharp.Devices.Resolver;
 
 namespace XKeysSharp.Devices
 {
-    public abstract class AbstractXKDeviceWithBlueBacklightLEDs : AbstractXKDevice,IDeviceWithBlueBacklightLEDs, IDeviceWithButtons<ButtonWithBlueLED>
+    public abstract class AbstractXKDeviceWithBlueBacklightLEDs : AbstractXKDevice, IDeviceWithBlueBacklightLEDs, IDeviceWithButtons<ButtonWithBlueLED>
     {
         protected virtual uint[]? UnavailableButtons { get; }
 

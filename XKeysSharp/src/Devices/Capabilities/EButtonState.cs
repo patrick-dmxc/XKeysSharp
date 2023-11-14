@@ -2,7 +2,7 @@
 {
     public enum EButtonState
     {
-        Up=0,
-        Down=1
+        Up = 0,
+        Down = 1
     }
 }

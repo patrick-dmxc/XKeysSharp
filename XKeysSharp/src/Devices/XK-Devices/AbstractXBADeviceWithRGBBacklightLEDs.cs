@@ -4,7 +4,7 @@ using XKeysSharp.Devices.Resolver;
 
 namespace XKeysSharp.Devices
 {
-    public abstract class AbstractXBADeviceWithRGBBacklightLEDs : AbstractXKDevice,IDeviceWithRGBBacklightLEDs, IDeviceWithButtons<ButtonWithRGBLED>
+    public abstract class AbstractXBADeviceWithRGBBacklightLEDs : AbstractXKDevice, IDeviceWithRGBBacklightLEDs, IDeviceWithButtons<ButtonWithRGBLED>
     {
         protected virtual uint[]? UnavailableButtons { get; }
         protected TBarResolver? tBarResolver { get; private set; }

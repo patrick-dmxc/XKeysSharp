@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace XKeysSharp.Devices
 {
-    public interface IDevice: INotifyPropertyChanged
+    public interface IDevice : INotifyPropertyChanged
     {
         string Name { get; }
         string? SerialNumber { get; }

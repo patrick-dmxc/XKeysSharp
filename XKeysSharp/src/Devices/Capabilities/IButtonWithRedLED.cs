@@ -1,6 +1,6 @@
 ﻿namespace XKeysSharp
 {
-    public interface IButtonWithRedLED: IButton
+    public interface IButtonWithRedLED : IButton
     {
         void SetRedLEDState(ELEDState state);
     }

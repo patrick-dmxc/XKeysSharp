@@ -46,7 +46,7 @@ namespace XKeysSharp.Devices
         {
             base.onCreated();
 
-            if(this.tBarResolver!=null)
+            if (this.tBarResolver != null)
                 tBarResolver.PropertyChanged += TBarResolver_PropertyChanged;
 
             if (this.joystickResolver != null)

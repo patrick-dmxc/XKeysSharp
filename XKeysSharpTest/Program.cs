@@ -81,7 +81,7 @@ void test(AbstractXKDeviceWithBlueAndRedBacklightLEDs device)
                 button.SetBlueLEDState(XKeysSharp.ELEDState.FLASH);
                 button.SetRedLEDState(XKeysSharp.ELEDState.FLASH);
             }
-            for (byte b = 0; b < byte.MaxValue; b+=5)
+            for (byte b = 0; b < byte.MaxValue; b += 5)
             {
                 device.SetFlashFrequency((byte)(byte.MaxValue - b));
                 await Task.Delay(100);

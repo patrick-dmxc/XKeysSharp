@@ -67,7 +67,7 @@ namespace XKeysSharp.Devices
             resolvers.Add(resolver);
         }
         public async Task Connect()
-        { 
+        {
             if (((IDeviceP)this).PIEDevice == null)
                 throw new NullReferenceException($"{nameof(PIEDevice)} is null");
 
@@ -89,7 +89,7 @@ namespace XKeysSharp.Devices
             resolvers.ForEach(resolver => resolver?.Resolve(data));
             HandleData(data);
         }
-        protected virtual void HandleData(byte[] data) 
+        protected virtual void HandleData(byte[] data)
         {
         }
 

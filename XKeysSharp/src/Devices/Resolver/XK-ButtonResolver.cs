@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace XKeysSharp.Devices.Resolver
 {
     public class XK_ButtonResolver<T> : AbstractResolver where T : Button
-    { 
+    {
         public byte? MaxColumns { get; private set; }
         public byte? MaxRows { get; private set; }
 
@@ -13,7 +13,7 @@ namespace XKeysSharp.Devices.Resolver
 
         public override event PropertyChangedEventHandler? PropertyChanged;
 
-        public XK_ButtonResolver(in PIEDevice pIEDevice, in uint buttonsCount, uint[]? unavailableButtonIndexes=null)
+        public XK_ButtonResolver(in PIEDevice pIEDevice, in uint buttonsCount, uint[]? unavailableButtonIndexes = null)
         {
             uint offset = 0;
             uint index = 0;
