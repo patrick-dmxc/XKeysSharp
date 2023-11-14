@@ -28,4 +28,4 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with:
-        path: XKeysSharp/bin/Release/net6.0/*.dll
+        path: XKeysSharp/bin/Release/**/*.dll
